@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col space-y-4 ">
-          <ExternalLink href={siteConfig.social.github}>
+          <ExternalLink href={`https://github.com/${siteConfig.social.github}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -166,6 +166,8 @@ const Footer = () => {
           </Link>
         </div>
       </AnimationContainer>
+
+      {/* Removed the AuthAvatar component div */}
 
       <Credits />
     </footer>

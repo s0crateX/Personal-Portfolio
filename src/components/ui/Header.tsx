@@ -6,7 +6,7 @@ import MobileMenuNav from './MobileMenuNav';
 import NavItem from './NavItem';
 import { siteConfig } from '@/src/configs/config';
 import ThemeToggle from '@/src/components/utils/ThemeToggle';
-import AuthAvatar from '@/src/components/ui/AuthAvatar';
+// Removed AuthAvatar import
 
 const Header = () => {
   return (
@@ -29,7 +29,7 @@ const Header = () => {
         <div className="ml-[-0.80rem] flex items-center gap-4">
           <MobileMenuNav />
           <NavItem />
-          <AuthAvatar />
+          {/* Removed AuthAvatar component */}
           <ThemeToggle />
         </div>
       </nav>

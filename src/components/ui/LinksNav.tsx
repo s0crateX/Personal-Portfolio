@@ -15,6 +15,9 @@ export const navItemsSelected: { [key: string]: NavItemHeaderAnimation } = {
   '/projects': {
     name: 'projects'
   },
+  '/certificates': {
+    name: 'certificates'
+  },
   '/blog': {
     name: 'blog'
   }

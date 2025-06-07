@@ -30,17 +30,33 @@ export default async function handler(
   }
 
   console.log('Fetching new RSS feed data');
+  console.log('Blog URL:', `${siteConfig.social.blog}/rss.xml`);
 
   try {
+    // Check if blog URL is properly configured
+    if (!siteConfig.social.blog) {
+      console.error('Blog URL is not configured in siteConfig');
+      return res.status(500).json({ 
+        message: 'Blog URL is not configured', 
+        items: [] 
+      });
+    }
+
     const parser = new Parser();
     const feed = await parser.parseURL(`${siteConfig.social.blog}/rss.xml`);
 
+    // Check if feed has items
+    if (!feed.items || feed.items.length === 0) {
+      console.log('No items found in the RSS feed');
+      return res.status(200).json({ items: [] });
+    }
+
     // Assuming `feed.items` contains a `categories` field for tags
     const blogs: BlogPost[] = feed.items.map((item: any) => ({
-      guid: item.guid || '',
-      title: item.title || '',
+      guid: item.guid || item.id || Math.random().toString(36).substring(2, 15),
+      title: item.title || 'No Title',
       link: item.link || '',
-      contentSnippet: item.contentSnippet || '',
+      contentSnippet: item.contentSnippet || item.content || '',
       categories: item.categories || [], // Categories (tags)
       source: item.source?.title || 'Hashnode' // Get the source blog title
     }));
@@ -52,6 +68,11 @@ export default async function handler(
     res.status(200).json({ items: blogs });
   } catch (error) {
     console.error('Error fetching RSS feed:', error);
-    res.status(500).json({ message: 'Error fetching RSS feed' });
+    // Return empty array instead of error to prevent UI from breaking
+    res.status(200).json({ 
+      message: 'Error fetching RSS feed', 
+      items: [],
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 }

@@ -104,11 +104,12 @@ const Chatbot = () => {
 
     if (messages.length === 0) {
       const initialMessage = {
-        text: 'Hello, how can I assist you today?',
+        text: "Hello, I'm Dave's personal AI. How can I assist you today?",
         sender: 'bot'
       };
       setMessages([initialMessage]);
     }
+    
   }, [isOpen, messages.length, rateLimit]); // Add messages.length and rateLimit as dependencies
 
   return (
@@ -120,7 +121,7 @@ const Chatbot = () => {
         }`}
         onClick={toggleChat}
       >
-        <span className="text-2xl">{isOpen ? '❌' : '🚀'}</span>
+        <span className="text-2xl">{isOpen ? '❌' : '🥷'}</span>
       </div>
 
       {/* Chatbot Window */}

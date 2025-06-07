@@ -15,6 +15,7 @@ export const siteConfig: {
     linkedin: string;
     medium: string;
     discord: string;
+    blog: string;
     daily_dev: {
       username: string;
       card: string;
@@ -36,8 +37,8 @@ export const siteConfig: {
     type: string;
   };
 } = {
-  baseUrl: '', // Change this to your production URL
-  domain: '',// Change this to your production URL
+  baseUrl: 'http://localhost:3000', // Change this to your production URL
+  domain: 'localhost:3000',// Change this to your production URL
   author: 'Ryan Dave Chiva',
   author_surname: 'Chiva',
   titlePrefix: 'Ryan Dave Chiva',
@@ -52,6 +53,7 @@ export const siteConfig: {
     github: 'Sudo-4L0N3',
     linkedin: 'https://www.linkedin.com/in/s0cratex/',
     medium: 'https://medium.com/@s0crateX',
+    blog: 'https://s0cratex.hashnode.dev',
     discord: 'https://discord.gg/mXMhy2EX',
     daily_dev: {
       username: 's0cratex',

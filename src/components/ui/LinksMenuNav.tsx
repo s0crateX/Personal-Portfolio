@@ -19,9 +19,14 @@ const LinksMenu = [
     delay: '200ms'
   },
   {
+    name: 'Certificates',
+    path: '/certificates',
+    delay: '225ms'
+  },
+  {
     name: 'Blog',
     path: '/blog',
-    delay: '225ms'
+    delay: '250ms'
   }
 ];
 

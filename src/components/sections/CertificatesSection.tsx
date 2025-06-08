@@ -26,7 +26,7 @@ const certificatesData: Certificate[] = [
     imagePath: '/cert/Programming For Intermediate User Using Python.jpg',
     issuer: 'Department of Information and Communications Technology',
     issueDate: 'November 13, 2021',
-    credentialLink: 'https://example.com/verify/b4ebc228-8640-4968-a3e4-d221c9e671a'
+    
   },
   {
     id: 'python-statistics',
@@ -35,7 +35,7 @@ const certificatesData: Certificate[] = [
     imagePath: '/cert/Learn Basic Statistics with Python.jpg',
     issuer: 'Department of Information and Communications Technology',
     issueDate: 'December 09, 2021',
-    credentialLink: 'https://example.com/verify/64f18eba-79dc-40ed-909c-801b41f53bc9'
+    
   },
   {
     id: 'python-data-analysis',
@@ -44,7 +44,7 @@ const certificatesData: Certificate[] = [
     imagePath: '/cert/Analyze Data With Python.jpg',
     issuer: 'Department of Information and Communications Technology',
     issueDate: 'June 11, 2022',
-    credentialLink: 'https://example.com/verify/39360c85-a7e3-4430-b722-b154c066ca1a'
+    
   },
   {
     id: 'cybersecurity-basics',

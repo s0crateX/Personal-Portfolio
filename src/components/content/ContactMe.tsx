@@ -9,9 +9,12 @@ const ContactMe = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
   const [isWaiting, setIsWaiting] = useState(false);
   const [waitTime, setWaitTime] = useState(0); // In seconds
   const [userInfo, setUserInfo] = useState<any>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (siteConfig.contact.debug) {
@@ -45,7 +48,7 @@ const ContactMe = () => {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Check if user is trying to send an email before the ratelimit window is up
@@ -53,17 +56,17 @@ const ContactMe = () => {
     const lastEmail = sessionStorage.getItem('lastEmail');
     const currentTime = Date.now();
     const rateLimit = siteConfig.contact.rateLimit;
-    const FIVE_MINUTES = rateLimit * 60 * 1000; // default 10 minutes in milliseconds
+    const RATE_LIMIT_WINDOW = rateLimit * 60 * 1000; // default 10 minutes in milliseconds
 
     if (
       lastSubmittedTime &&
-      currentTime - parseInt(lastSubmittedTime) < FIVE_MINUTES
+      currentTime - parseInt(lastSubmittedTime) < RATE_LIMIT_WINDOW
     ) {
-      // If less than 10 minutes have passed since last submission
+      // If less than rate limit time have passed since last submission
       setIsWaiting(true);
       setWaitTime(
         Math.ceil(
-          (FIVE_MINUTES - (currentTime - parseInt(lastSubmittedTime))) / 1000
+          (RATE_LIMIT_WINDOW - (currentTime - parseInt(lastSubmittedTime))) / 1000
         )
       ); // Show wait time in seconds
       return;
@@ -72,16 +75,54 @@ const ContactMe = () => {
     if (lastEmail && lastEmail !== email) {
       // If email is different and already used
       setIsWaiting(true);
-      setWaitTime(Math.ceil(FIVE_MINUTES / 1000)); // Show 5 minutes wait time
+      setWaitTime(Math.ceil(RATE_LIMIT_WINDOW / 1000)); // Show rate limit wait time
       return;
     }
 
-    // Simulate form submission and success
-    setTimeout(() => {
-      setIsSubmitted(true);
-      sessionStorage.setItem('lastSubmittedTime', currentTime.toString());
-      sessionStorage.setItem('lastEmail', email);
-    }, 500);
+    setIsSubmitting(true);
+
+    try {
+      // Create FormData object for submission
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('phone', phone);
+      formData.append('message', message);
+      
+      if (siteConfig.contact.debug) {
+        formData.append('userInfo', JSON.stringify(userInfo));
+      }
+
+      // Submit to Formspree
+      const response = await fetch(siteConfig.form_id, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        sessionStorage.setItem('lastSubmittedTime', currentTime.toString());
+        sessionStorage.setItem('lastEmail', email);
+        // Reset form fields
+        setName('');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+      } else {
+        console.error('Form submission failed', responseData);
+        alert(`There was an error submitting the form: ${responseData.error || 'Please try again later.'}`);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting the form. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,12 +150,12 @@ const ContactMe = () => {
             onSubmit={handleSubmit}
             className="w-full space-y-4"
             method="POST"
-            encType="multipart/form-data"
           >
             <div>
               <Input
                 isClearable={true}
                 label="Name"
+                name="name"
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -127,6 +168,7 @@ const ContactMe = () => {
                 <Input
                   isClearable={true}
                   label="Email"
+                  name="email"
                   placeholder="Enter your email"
                   type="email"
                   value={email}
@@ -139,8 +181,11 @@ const ContactMe = () => {
                 <Input
                   isClearable={true}
                   label="Phone"
+                  name="phone"
                   placeholder="Enter your phone number"
                   type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>
@@ -150,8 +195,11 @@ const ContactMe = () => {
               <Textarea
                 isClearable={true}
                 label="Message"
+                name="message"
                 placeholder="Enter your message"
                 rows={4}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 required
               />
             </div>
@@ -162,7 +210,6 @@ const ContactMe = () => {
                   type="hidden"
                   name="userInfo"
                   value={JSON.stringify(userInfo)}
-                  required
                 />
               </div>
             )}
@@ -170,8 +217,11 @@ const ContactMe = () => {
             <Button
               type="submit"
               className="flex items-center justify-center rounded-xl px-5 py-3 text-white dark:text-black bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 shadow-sm transition ease mx-auto"
+              disabled={isSubmitting}
             >
-              <span className="font-medium text-base">Send</span>
+              <span className="font-medium text-base">
+                {isSubmitting ? 'Sending...' : 'Send'}
+              </span>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -213,6 +263,9 @@ const ContactMe = () => {
             <p className="text-base text-foreground dark:text-gray-400">
               Your message has been sent to {siteConfig.social.email}{' '}
               successfully.
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              If you don't receive a response within 48 hours, please check your spam folder or try again.
             </p>
             <Button
               onPress={() => setIsSubmitted(false)}

@@ -39,7 +39,14 @@ const ProjectsSection = () => {
         setAllProjectsInfo(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching projects:', error);
-        setFetchError('Failed to fetch projects'); // Set the error message
+        // Get a more detailed error message if available
+        let errorMessage = 'Failed to fetch projects';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        } else if (typeof error === 'object' && error !== null && 'message' in error) {
+          errorMessage = String(error.message);
+        }
+        setFetchError(errorMessage); // Set the detailed error message
         setAllProjectsInfo([]); // Fallback to empty array if an error occurs
       } finally {
         setIsLoading(false);
@@ -114,8 +121,17 @@ const ProjectsSection = () => {
               ))
             ) : fetchError ? (
               <AnimationContainer customClassName="w-full group flex flex-col justify-center items-center mb-8">
-                <div className="text-center text-black dark:text-white p-4">
-                  <h2>{fetchError}</h2> {/* Display the error message */}
+                <div className="text-center text-black dark:text-white p-4 border border-red-300 rounded-md bg-red-50 dark:bg-red-900/20">
+                  <h2 className="text-xl font-bold mb-2">Error Loading Projects</h2>
+                  <p className="mb-4">{fetchError}</p>
+                  <div className="text-sm">
+                    <p className="mb-2">Possible solutions:</p>
+                    <ul className="list-disc list-inside text-left">
+                      <li>Check your GitHub token in the .env file</li>
+                      <li>Verify your internet connection</li>
+                      <li>Check GitHub API status at <a href="https://www.githubstatus.com/" target="_blank" rel="noopener noreferrer" className="underline">githubstatus.com</a></li>
+                    </ul>
+                  </div>
                 </div>
               </AnimationContainer>
             ) : allProjectsInfo.length > 0 ? (

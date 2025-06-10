@@ -62,6 +62,60 @@ const certificatesData: Certificate[] = [
     issuer: 'Cisco Networking Academy',
     issueDate: 'December 13, 2023',
     credentialLink: 'https://www.credly.com/badges/ccna-enterprise'
+  },
+  {
+    id: 'ccna-itn',
+    title: 'CCNA: Introduction to Networks',
+    description: 'Successfully completed the first course in the CCNA curriculum, covering network fundamentals, access, IP addressing, and basic security concepts.',
+    imagePath: '/cert/CCNAITN.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'May 15, 2023',
+    credentialLink: 'https://www.credly.com/badges/ccna-introduction-to-networks'
+  },
+  {
+    id: 'ccna-srwe',
+    title: 'CCNA: Switching, Routing, and Wireless Essentials',
+    description: 'Successfully completed the second course in the CCNA curriculum, covering switching technologies, VLANs, inter-VLAN routing, and wireless LAN concepts.',
+    imagePath: '/cert/CCNASRWE.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'August 30, 2023',
+    credentialLink: 'https://www.credly.com/badges/ccna-switching-routing-wireless-essentials'
+  },
+  {
+    id: 'cybersecurity-essentials',
+    title: 'Cybersecurity Essentials',
+    description: 'Completed comprehensive training in cybersecurity fundamentals, including threat detection, network security, and cybersecurity principles.',
+    imagePath: '/cert/CybersecurityEssentials.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'February 20, 2023',
+    credentialLink: 'https://www.credly.com/badges/cybersecurity-essentials'
+  },
+  {
+    id: 'devnet-associate',
+    title: 'DevNet Associate',
+    description: 'Successfully completed the Cisco DevNet Associate certification program, covering software development, APIs, automation, and programmability skills for network engineers.',
+    imagePath: '/cert/DevNetAssociate.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'March 10, 2024',
+    credentialLink: 'https://www.credly.com/badges/devnet-associate'
+  },
+  {
+    id: 'intro-to-cybersecurity',
+    title: 'Introduction to Cybersecurity',
+    description: 'Completed introductory course in cybersecurity, covering basic concepts, principles, and best practices in the field of cybersecurity.',
+    imagePath: '/cert/I2CS.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'January 15, 2023',
+    credentialLink: 'https://www.credly.com/badges/introduction-to-cybersecurity'
+  },
+  {
+    id: 'network-security',
+    title: 'Network Security',
+    description: 'Successfully completed advanced training in network security, covering security protocols, firewall configuration, intrusion detection, and network defense strategies.',
+    imagePath: '/cert/NetworkSecurity.jpg',
+    issuer: 'Cisco Networking Academy',
+    issueDate: 'April 5, 2023',
+    credentialLink: 'https://www.credly.com/badges/network-security'
   }
 ];
 

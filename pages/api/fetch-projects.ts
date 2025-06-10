@@ -4,7 +4,7 @@ const GITHUB_USERNAME = siteConfig.social.github;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 if (!GITHUB_TOKEN) {
-  throw new Error('GitHub token is not defined in .env.local');
+  throw new Error('GitHub token is not defined in .env file');
 }
 
 // In-memory cache to store repository data
@@ -41,13 +41,15 @@ export default async function handler(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`,
       {
         headers: {
-          Authorization: `token ${GITHUB_TOKEN}`
+          Authorization: `Bearer ${GITHUB_TOKEN}`
         }
       }
     );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch repositories');
+      const errorText = await response.text();
+      console.error(`GitHub API Error: Status ${response.status}, Response: ${errorText}`);
+      throw new Error(`Failed to fetch repositories: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -55,18 +57,27 @@ export default async function handler(
     // Fetch topics for each repository
     const projectsWithTopics = await Promise.all(
       data.map(async (repo: any) => {
-        const topicsResponse = await fetch(
-          `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/topics`,
-          {
-            headers: {
-              Authorization: `token ${GITHUB_TOKEN}`,
-              Accept: 'application/vnd.github.v3+json'
+        let topics = [];
+        try {
+          const topicsResponse = await fetch(
+            `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/topics`,
+            {
+              headers: {
+                Authorization: `Bearer ${GITHUB_TOKEN}`,
+                Accept: 'application/vnd.github.v3+json'
+              }
             }
-          }
-        );
+          );
 
-        const topicsData = await topicsResponse.json();
-        const topics = topicsData.names || [];
+          if (!topicsResponse.ok) {
+            console.error(`Error fetching topics for ${repo.name}: ${topicsResponse.status} ${topicsResponse.statusText}`);
+          } else {
+            const topicsData = await topicsResponse.json();
+            topics = topicsData.names || [];
+          }
+        } catch (topicError) {
+          console.error(`Exception fetching topics for ${repo.name}:`, topicError);
+        }
 
         return {
           id: repo.id.toString(),
@@ -89,7 +100,8 @@ export default async function handler(
     sendFilteredProjects(projectsWithTopics, search, res);
   } catch (error) {
     console.error('Error fetching GitHub repositories:', error);
-    res.status(500).json({ message: 'Error fetching repositories' });
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    res.status(500).json({ message: `Error fetching repositories: ${errorMessage}` });
   }
 }
 

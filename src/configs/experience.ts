@@ -23,7 +23,7 @@ export const experienceEntries: ExperienceEntry[] = [
   {
     title: 'Philippine Statistics Authority - Map Data Processor | Feb. 2025 - Apr. 2025',
     description:
-      'Processed and validated geographic data to support census mapping and ensure accuracy in spatial databases. Generated maps used by Map Data Collectors (MDC) in the field for data collection. Processed and reviewed maps returned by MDC to verify data integrity and completeness.',
+      'Processed and validated geographic data, including data from the 2024 Service Facilities and Government Projects Geotagging (SFGP) and List of Building Construction (LoBC) operations, to support census mapping and ensure accuracy in spatial databases. Generated maps used by Map Data Collectors (MDC) in the field for data collection. Processed and reviewed maps returned by MDC to verify data integrity and completeness.',
     startDate: 'Feb 2025',
     endDate: 'Apr 2025',
     isActive: false
@@ -31,7 +31,7 @@ export const experienceEntries: ExperienceEntry[] = [
   {
     title: 'Philippine Statistics Authority - On-the-Job Trainee | Sep. 2024 - Jan. 2025',
     description:
-      'Developed PSA Inventory Management System using VB.NET and MS Access to digitize inventory tracking. Supported IT productivity by resolving hardware/software issues and maintaining databases. Streamlined census data workflows and updated POPCBM systems across employee desks.',
+      'Developed PSA Inventory Management System using VB.NET and MS Access to digitize inventory tracking. Supported IT productivity by resolving hardware/software issues. Streamlined census data workflows and updated POPCBM systems across employee desks.',
     startDate: 'Sep 2024',
     endDate: 'Jan 2025',
     isActive: false

@@ -84,17 +84,8 @@ const BlogSection = () => {
 
         <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
         <p className="w-full text-base text-black dark:text-white">
-  I'll be sharing some of my write-ups here as I go through my cybersecurity journey. To view all my posts, visit my{' '}
-  <Link
-    href="https://github.com/Sudo-4L0N3"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline transition-all ease"
-  >
-    Blog Page
-  </Link>
-  .
-</p>
+            I'll be sharing some of my write-ups here as I go through my cybersecurity journey. Stay tuned for more updates!
+        </p>
 
 
           {/* Use SearchInput component */}

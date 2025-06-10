@@ -110,7 +110,7 @@ const Badges: React.FC = () => {
 
         <div className="flex justify-center mb-4">
           <Link 
-            href="https://www.credly.com/users/sud0"
+            href="https://www.credly.com/users/s0cratex"
             className=" font-medium text-center text-gray-900 dark:text-gray-100 flex-1 flex items-center justify-center min-h-[30px] px-1 leading-tight overflow-hidden"
             target="_blank"
             rel="noopener noreferrer"

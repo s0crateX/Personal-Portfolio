@@ -31,7 +31,7 @@ export const experienceEntries: ExperienceEntry[] = [
   {
     title: 'Philippine Statistics Authority - On-the-Job Trainee | Sep. 2024 - Jan. 2025',
     description:
-      'Developed PSA Inventory Management System using VB.NET and MS Access to digitize inventory tracking. Supported IT productivity by resolving hardware/software issues. Streamlined census data workflows and updated POPCBM systems across employee desks.',
+      'Developed the PSA Inventory Management System to digitize inventory tracking processes. Enhanced IT productivity by resolving hardware and software issues. Streamlined census data workflows and updated POPCBM systems across employee workstations.',
     startDate: 'Sep 2024',
     endDate: 'Jan 2025',
     isActive: false

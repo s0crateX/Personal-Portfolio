@@ -45,7 +45,7 @@
     "cookies-next": "^5.1.0",
     "devicon": "^2.16.0",
     "embla-carousel-react": "^8.6.0",
-    "eslint-config-prettier": "^10.1.5",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.4.0",
     "framer-motion": "^12.12.1",
     "graphql-request": "^7.1.2",

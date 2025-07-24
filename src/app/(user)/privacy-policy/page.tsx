@@ -1,5 +1,16 @@
 import Link from 'next/link';
 import { siteConfig } from '@/src/configs/config';
+import { generateMetadata as getPageMetadata } from '@/src/components/utils/generateMetadata';
+
+export async function generateMetadata() {
+  return getPageMetadata({
+    title: 'Privacy Policy',
+    description: 'Read our privacy policy to understand how we collect, use, and protect your personal information when using our services.',
+    path: '/privacy-policy',
+    type: 'article',
+    modifiedTime: '2025-02-23T00:00:00.000Z'
+  });
+}
 
 const PrivacyPolicy = () => {
   return (

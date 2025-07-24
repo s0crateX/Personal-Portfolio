@@ -1,21 +1,58 @@
 import type { MetadataRoute } from 'next';
+import { siteConfig } from '@/src/configs/config';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: '*', // All bots
-        allow: '/', // Allow all pages to be crawled
-        disallow: '/private/' // Disallow crawling of the /private/ directory
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          '/private/',
+          '/admin/',
+          '/api/',
+          '/_next/',
+          '/static/',
+          '*.json',
+          '*.xml'
+        ],
+        crawlDelay: 1
       },
       {
-        userAgent: 'ia_archiver', // Block Internet Archive (Wayback Machine)
-        disallow: '/' // Disallow access to all pages
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: [
+          '/private/',
+          '/admin/',
+          '/api/'
+        ]
+      },
+      {
+        userAgent: 'Bingbot',
+        allow: '/',
+        disallow: [
+          '/private/',
+          '/admin/',
+          '/api/'
+        ]
+      },
+      {
+        userAgent: 'ia_archiver',
+        disallow: '/'
+      },
+      {
+        userAgent: 'SemrushBot',
+        disallow: '/'
+      },
+      {
+        userAgent: 'AhrefsBot',
+        disallow: '/'
       }
     ],
     sitemap: [
-      'https://muhammadfiaz.com/sitemap.xml', // First sitemap URL
-      'https://muhammadfiaz.com/sitemap-0.xml' // Second sitemap URL
-    ]
+      `${siteConfig.baseUrl}/sitemap.xml`,
+      `${siteConfig.baseUrl}/sitemap-0.xml`
+    ],
+    host: siteConfig.baseUrl
   };
 }

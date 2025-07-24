@@ -1,5 +1,16 @@
 import { siteConfig } from '@/src/configs/config';
 import Link from 'next/link';
+import { generateMetadata as getPageMetadata } from '@/src/components/utils/generateMetadata';
+
+export async function generateMetadata() {
+  return getPageMetadata({
+    title: 'Terms of Service',
+    description: 'Read our terms and conditions that govern the use of our website and services. Learn about your rights and obligations.',
+    path: '/terms-of-service',
+    type: 'article',
+    modifiedTime: '2025-02-23T00:00:00.000Z'
+  });
+}
 
 export default function TermsOfService() {
   return (

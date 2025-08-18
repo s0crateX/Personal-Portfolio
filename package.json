@@ -23,7 +23,7 @@
     "@emotion/react": "^11.14.0",
     "@google/generative-ai": "^0.22.0",
     "@heroui/react": "^2.7.8",
-    "@mantine/carousel": "^7.17.7",
+    "@mantine/carousel": "^8.2.5",
     "@mantine/core": "^7.17.7",
     "@mantine/hooks": "^7.17.7",
     "@portabletext/react": "^3.2.1",
